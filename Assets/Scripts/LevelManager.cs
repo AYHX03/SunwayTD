@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] path;
 
     public int IQ;
+    public int EQ;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         IQ = 100;
+        EQ = 100;
     }
 
     public void IncreaseIQ(int amount)
@@ -37,6 +39,19 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Not enuf");
             return false;
+        }
+    }
+
+    // decrease eq ingame
+    public void DecreaseEQ(int amount)
+    {
+        EQ -= amount;
+
+        Debug.Log("Current EQ: " + EQ);
+
+        if (EQ == 0)
+        {
+            Debug.Log("Game Over");
         }
     }
 }

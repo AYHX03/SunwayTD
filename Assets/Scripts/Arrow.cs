@@ -29,7 +29,13 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        other.gameObject.GetComponent<Health>().TakeDamage(bulletDamage);
+        Health healthComponent = other.gameObject.GetComponent<Health>();
+        if (healthComponent != null)
+        {
+            healthComponent.TakeDamage(bulletDamage);
+        }
+
         Destroy(gameObject);
     }
+
 }

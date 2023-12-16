@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int hitPoints = 2;
     [SerializeField] private int iQWorth = 50;
+    [SerializeField] private int eQWorth = 50;
 
     private bool isDetroyed = false;
     public void TakeDamage(int dmg)
@@ -20,5 +21,11 @@ public class Health : MonoBehaviour
             isDetroyed = true;
             Destroy(gameObject);
         }
+    }
+
+    // return eq to enemyMovement.cs
+    public int LeaveTileMap()
+    {
+        return eQWorth;
     }
 }
