@@ -12,8 +12,8 @@ public class GameHealth : MonoBehaviour
 
     private void OnGUI()
     {
-        currencyUI.text = "IQ: " + LevelManager.main.IQ.ToString();
-        healthUI.text = "EQ: " + LevelManager.main.EQ.ToString();
+        currencyUI.text = LevelManager.main.IQ.ToString();
+        healthUI.text = LevelManager.main.EQ.ToString();
 
     }
 

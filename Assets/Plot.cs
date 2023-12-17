@@ -7,6 +7,7 @@ public class Plot : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Color hoverColor;
+    [SerializeField] GameObject pauseMenu;
 
     public GameObject towerObj;
     public Tower tower;
@@ -19,7 +20,11 @@ public class Plot : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        sr.color = hoverColor;
+        if (pauseMenu.activeInHierarchy == false) 
+        {
+            sr.color = hoverColor;
+        }
+        
     }
 
     private void OnMouseExit() 
@@ -30,24 +35,28 @@ public class Plot : MonoBehaviour
     private void OnMouseDown()
     {
 
-        if (UIManager.main.IsHoweringUI()) return; 
+        if (UIManager.main.IsHoweringUI()) return;
 
-        if (towerObj != null)
+        if (pauseMenu.activeInHierarchy == false)
         {
-            tower.OpenUpgradeUI();
-            return;
+            if (towerObj != null)
+            {
+                tower.OpenUpgradeUI();
+                return;
+            }
+
+            TowerSetting towerToBuild = BuildManager.main.GetSelectedTower();
+            if (towerToBuild.cost > LevelManager.main.IQ)
+            {
+                Debug.Log("CAnt afford");
+                return;
+            }
+
+            LevelManager.main.SpendIQ(towerToBuild.cost);
+
+            towerObj = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
+            tower = towerObj.GetComponent<Tower>();
         }
-
-        TowerSetting towerToBuild = BuildManager.main.GetSelectedTower();
-        if (towerToBuild.cost > LevelManager.main.IQ)
-        {
-            Debug.Log("CAnt afford");
-            return;
-        }
-
-        LevelManager.main.SpendIQ(towerToBuild.cost);
-
-        towerObj = Instantiate (towerToBuild.prefab,transform.position,Quaternion.identity);
-        tower = towerObj.GetComponent<Tower>();
+        
     }
 }
