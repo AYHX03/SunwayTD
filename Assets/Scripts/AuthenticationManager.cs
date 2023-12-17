@@ -6,6 +6,8 @@ using Unity.Services.Authentication;
 using System.Threading.Tasks;
 using TMPro;
 using System;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class AuthenticationManager : MonoBehaviour
 {
@@ -62,6 +64,8 @@ public class AuthenticationManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
             Debug.Log("Sign In Successful");
+            /*SceneManager.LoadScene("MainMenu");*/
+            SceneManager.LoadScene("LevelSelection");
         }
         catch (AuthenticationException ex)
         {
